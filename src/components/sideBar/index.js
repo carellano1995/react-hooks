@@ -9,8 +9,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
+import ContextMenu from "../contextMenu";
+import { useContextMenu } from "../../contexts/contextMenuContext";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useLoadingBar } from "../../contexts/loadingBarContext";
+// import { useLoadingBar } from "../../contexts/loadingBarContext";
 
 const drawerWidth = 240;
 
@@ -50,8 +52,12 @@ const SideBar = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const loading = useLoadingBar();
-  const { loadingDispatch } = loading;
+  // const loading = useLoadingBar();
+  // const { loadingDispatch } = loading;
+  const contextMenu = useContextMenu();
+
+  const { contextMenuDispatch, contextMenuId } = contextMenu;
+  debugger;
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
@@ -61,31 +67,32 @@ const SideBar = props => {
       name: "Dashboard",
       href: "/",
       id: 1,
-      click: () => loadingDispatch("disable")
+      click: () => contextMenuDispatch("dashboard")
     },
     {
       name: "Usuarios",
       href: "/1",
       id: 2,
-      click: () => loadingDispatch("active")
+      click: () => contextMenuDispatch("users")
     },
     {
       name: "Configuracion",
       href: "/",
       id: 3,
-      click: () => loadingDispatch("disable")
+      click: () => contextMenuDispatch("config")
     },
     {
       name: "Logout",
       href: "/1",
       id: 4,
-      click: () => loadingDispatch("active")
+      click: () => contextMenuDispatch("logout")
     }
   ];
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
+
       <List>
         {pages.map((item, index) => {
           return (
@@ -105,6 +112,7 @@ const SideBar = props => {
           );
         })}
       </List>
+      <ContextMenu idContext={contextMenuId} />
     </div>
   );
 

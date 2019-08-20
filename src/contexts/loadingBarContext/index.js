@@ -6,7 +6,6 @@ const initialLoadingBar = {
 };
 
 const reducerLoadingBar = (state, action) => {
-  debugger;
   switch (action) {
     case "active":
       return { isActive: true };

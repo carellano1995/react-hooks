@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import { ToolbarContext } from "./contexts/toolbarContext";
 import { LoadingBarProvider } from "./contexts/loadingBarContext";
+import { ContextMenuProvider } from "./contexts/contextMenuContext";
 import Header from "./components/header";
 import Routes from "./Routes";
 import "./App.css";
@@ -54,7 +55,10 @@ const App = props => {
           <div className={classes.root}>
             <CssBaseline />
             <Header />
-            <SideBar />
+            <ContextMenuProvider>
+              <SideBar />
+            </ContextMenuProvider>
+
             <Routes childProps={childProps} />
           </div>
         </LoadingBarProvider>
